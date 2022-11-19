@@ -1,3 +1,7 @@
+from time import time
+import random
+
+
 class BSTNode:
     def __init__(self, root_node):
         self.root_node = root_node
@@ -15,13 +19,13 @@ class BSTNode:
                 self.left_sub_node = BSTNode(num)
             else:
                 self.left_sub_node.insert_node(num)
-
+            
     def print_tree(self):
         if self.left_sub_node is not None:
             self.left_sub_node.print_tree()
         print(self.root_node)
         if self.right_sub_node is not None:
-            self.right_sub_node.print_tree()        
+            self.right_sub_node.print_tree()
 
     def search_node(self, num):
         if num > self.root_node:
@@ -38,15 +42,24 @@ class BSTNode:
                 print(f"{num} is not found in this tree")
 
 
-values = [1, 3, 5, 4, 6, 66, 8, 56, 5, 4]
+values = [random.randint(1, 100000) for i in range(10)]
 search_value = 1
 
-tree = BSTNode(67)
+start_bst = time()
+tree = BSTNode(random.randint(1, 10000))
 for value in values:
-    print(f"Inserting {value}")
     tree.insert_node(value)
+tree.insert_node(311333)
+end_bst = time() - start_bst
+start_sorted = time()
+sorted(values)
+end_sorted = time() - start_sorted
 
-tree.search_node(search_value)
 
+# tree.search_node(search_value)
+start_print = time()
 tree.print_tree()
-
+end_print = time() - start_print
+print(f"time taken by bst {end_bst}")
+print(f"time taken by sorted {end_sorted}")
+print(f"time taken by print {end_print + end_bst}")
